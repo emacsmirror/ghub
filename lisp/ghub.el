@@ -784,10 +784,10 @@ or (info \"(ghub)Getting Started\") for instructions."
          (default-var (format "%s.user" forge)))
     (cond ((ghub--git-get var))
           ((not (equal host (alist-get forge ghub-default-host-alist)))
-           (user-error "Cannot determine username; `%s' is unset" var))
+           (error "Cannot determine username; `%s' is unset" var))
           ((ghub--git-get default-var))
-          ((user-error "%s; `%s' and `%s' are both unset"
-                       "Cannot determine username" var default-var)))))
+          ((error "Cannot determine username; `%s' and `%s' are both unset"
+                  var default-var)))))
 
 (defun ghub--ident (username package)
   (format "%s^%s" username package))
