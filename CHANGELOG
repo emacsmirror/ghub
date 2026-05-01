@@ -1,5 +1,5 @@
 # -*- mode: org -*-
-* v5.2.0    UNRELEASED
+* v5.2.0    2026-05-01
 
 - Fixed username lookup to work as documented.
 
