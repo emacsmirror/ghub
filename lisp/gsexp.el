@@ -31,6 +31,7 @@
 ;;; Code:
 
 (require 'cl-lib)
+(require 'compat)
 
 (defvar gsexp-one-variable-per-line nil)
 
