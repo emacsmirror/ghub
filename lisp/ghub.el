@@ -9,7 +9,7 @@
 ;; Package-Version: 5.2.0
 ;; Package-Requires: (
 ;;     (emacs   "29.1")
-;;     (compat  "30.1")
+;;     (compat  "31.0")
 ;;     (cond-let "1.0")
 ;;     (llama    "1.0")
 ;;     (treepy "0.1.3"))
@@ -403,7 +403,7 @@ See `ghub-request' for information about the other arguments."
           (if (> total 0)
               (let ((wait (min total (- duration total))))
                 (sit-for wait)
-                (cl-incf total wait))
+                (incf total wait))
             (sit-for (setq total 2))))))))
 
 (defun ghub-response-link-relations (req &optional headers payload)
@@ -510,7 +510,7 @@ Signal an error if the id cannot be determined."
                  (next    (cdr (assq 'next (ghub-response-link-relations
                                             req headers payload)))))
             (when (numberp unpaginate)
-              (cl-decf unpaginate))
+              (decf unpaginate))
             (setf (ghub--req-url req)
                   (url-generic-parse-url next))
             (setf (ghub--req-unpaginate req) unpaginate)

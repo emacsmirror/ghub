@@ -105,7 +105,7 @@ repositories.")
     :errorback   errorback)))
 
 (cl-defun ghub--graphql-retrieve (req &optional lineage cursor)
-  (let ((p (cl-incf (ghub--graphql-req-pages req))))
+  (let ((p (incf (ghub--graphql-req-pages req))))
     (when (> p 1)
       (when ghub-graphql-message-progress
         (let ((message-log-max nil))
