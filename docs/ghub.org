@@ -437,10 +437,6 @@ manuals:
     is assumed to be a valid token.  ~basic~ and an explicit token
     string are only intended for internal and debugging uses.
 
-    If ~AUTH~ is a package symbol, then the scopes are specified using
-    the variable ~AUTH-github-token-scopes~.  It is an error if that
-    is not specified.  See ~ghub-github-token-scopes~ for an example.
-
   - If ~HOST~ is non-~nil~, then connect to that Github instance.
     This defaults to "api.github.com".  When a repository is connected
     to a Github Enterprise instance, then it is better to specify that

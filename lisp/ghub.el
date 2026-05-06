@@ -82,13 +82,6 @@
     (bitbucket . "api.bitbucket.org"))
   "Alist of default hosts used when the respective `FORGE.host' is not set.")
 
-(defvar ghub-github-token-scopes '(repo)
-  "The Github API scopes that your private tools need.
-
-You have to manually create or update the token at
-https://github.com/settings/tokens.  This variable
-only serves as documentation.")
-
 (defvar ghub-insecure-hosts nil
   "List of hosts that use http instead of https.")
 

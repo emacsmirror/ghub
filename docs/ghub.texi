@@ -593,10 +593,6 @@ make a password based request.  If the value is a string, then it
 is assumed to be a valid token.  @code{basic} and an explicit token
 string are only intended for internal and debugging uses.
 
-If @code{AUTH} is a package symbol, then the scopes are specified using
-the variable @code{AUTH-github-token-scopes}.  It is an error if that
-is not specified.  See @code{ghub-github-token-scopes} for an example.
-
 @item
 If @code{HOST} is non-@code{nil}, then connect to that Github instance.
 This defaults to "api.github.com".  When a repository is connected
