@@ -76,10 +76,10 @@
 ;;; Settings
 
 (defvar ghub-default-host-alist
-  '((github    . "api.github.com")
+  '((github    . "github.com")
     (gitlab    . "gitlab.com")
     (forgejo   . "codeberg.org")
-    (bitbucket . "api.bitbucket.org"))
+    (bitbucket . "bitbucket.org"))
   "Alist of default hosts used when the respective `FORGE.host' is not set.")
 
 (defvar ghub-insecure-hosts nil
@@ -767,6 +767,15 @@ or (info \"(ghub)Getting Started\") for instructions."
     (or (ghub--git-get (format "%s.host" forge))
         (alist-get forge ghub-default-host-alist))))
 
+(defun ghub--host-domain (uri)
+  (let* ((uri (if (string-match "/" uri)
+                  (substring uri 0 (match-beginning 0))
+                uri))
+         (uri (split-string uri "\\."))
+         ;; This is an incomplete heuristic handling, e.g., ".co.uk".
+         (2tld (member (car (last uri 2)) '("co" "com" "gov" "net" "org"))))
+    (string-join (drop (- (length uri) (if 2tld 3 2)) uri) ".")))
+
 (cl-defmethod ghub--username (host &optional forge)
   (let* ((forge (or forge 'github))
          (host (or host (ghub--host forge)))
@@ -776,7 +785,8 @@ or (info \"(ghub)Getting Started\") for instructions."
          (var (format "%s.%s.user" forge host))
          (default-var (format "%s.user" forge)))
     (cond ((ghub--git-get var))
-          ((not (equal host (alist-get forge ghub-default-host-alist)))
+          ((not (equal (ghub--host-domain host)
+                       (alist-get forge ghub-default-host-alist)))
            (error "Cannot determine username; `%s' is unset" var))
           ((ghub--git-get default-var))
           ((error "Cannot determine username; `%s' and `%s' are both unset"
