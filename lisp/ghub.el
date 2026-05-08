@@ -76,10 +76,10 @@
 ;;; Settings
 
 (defvar ghub-default-host-alist
-  '((github    . "github.com")
+  '((github    . "api.github.com")
     (gitlab    . "gitlab.com")
     (forgejo   . "codeberg.org")
-    (bitbucket . "bitbucket.org"))
+    (bitbucket . "api.bitbucket.org"))
   "Alist of default hosts used when the respective `FORGE.host' is not set.")
 
 (defvar ghub-insecure-hosts nil
@@ -783,10 +783,12 @@ or (info \"(ghub)Getting Started\") for instructions."
                    (substring host 0 (match-beginning 0))
                  host))
          (var (format "%s.%s.user" forge host))
-         (default-var (format "%s.user" forge)))
+         (default-var (and (equal (ghub--host-domain host)
+                                  (ghub--host-domain
+                                   (alist-get forge ghub-default-host-alist)))
+                           (format "%s.user" forge))))
     (cond ((ghub--git-get var))
-          ((not (equal (ghub--host-domain host)
-                       (alist-get forge ghub-default-host-alist)))
+          ((not default-var)
            (error "Cannot determine username; `%s' is unset" var))
           ((ghub--git-get default-var))
           ((error "Cannot determine username; `%s' and `%s' are both unset"
