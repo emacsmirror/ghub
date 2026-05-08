@@ -744,22 +744,21 @@ and call `auth-source-forget+'."
 
 (defun ghub--token (host username package &optional nocreate forge)
   (let* ((user (ghub--ident username package))
-         (token (or (ghub--auth-source-get :secret :host host :user user)
-                    (and (string-match "\\`\\([^/]+\\)" host)
-                         (ghub--auth-source-get :secret
-                           :host (match-string 1 host)
-                           :user user)))))
+         (domain (ghub--host-domain host))
+         (token
+          (or (ghub--auth-source-get :secret :host host :user user)
+              (and (not (equal domain host))
+                   (ghub--auth-source-get :secret :host domain :user user)))))
     (unless (or token nocreate)
       (error "\
-Required %s token (%S for %s%S) does not exist.
+Required %s token (%S for %s) does not exist.
 See https://docs.magit.vc/ghub/Getting-Started.html
 or (info \"(ghub)Getting Started\") for instructions."
              (capitalize (symbol-name (or forge 'github)))
              user
-             (if (string-match "\\`\\([^/]+\\)" host)
-                 (format "either %S or " (match-string 1 host))
-               "")
-             host))
+             (if (equal domain host)
+                 (format "%S" host)
+               (format "either %S or %S" host domain))))
     (if (functionp token) (funcall token) token)))
 
 (cl-defmethod ghub--host (&optional forge)
