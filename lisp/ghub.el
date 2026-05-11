@@ -828,9 +828,16 @@ or (info \"(ghub)Getting Started\") for instructions."
 (require 'ghub-graphql)
 ;; Local Variables:
 ;; read-symbol-shorthands: (
-;;   ("and-let"   . "cond-let--and-let")
-;;   ("if-let"    . "cond-let--if-let")
-;;   ("when-let"  . "cond-let--when-let")
-;;   ("while-let" . "cond-let--while-let"))
+;;   ("and$"       . "cond-let--and$")
+;;   ("thread$"    . "cond-let--thread$")
+;;   ("when$"      . "cond-let--when$")
+;;   ("and-let*"   . "cond-let--and-let*")
+;;   ("and-let"    . "cond-let--and-let")
+;;   ("if-let*"    . "cond-let--if-let*")
+;;   ("if-let"     . "cond-let--if-let")
+;;   ("when-let*"  . "cond-let--when-let*")
+;;   ("when-let"   . "cond-let--when-let")
+;;   ("while-let*" . "cond-let--while-let*")
+;;   ("while-let"  . "cond-let--while-let"))
 ;; End:
 ;;; ghub.el ends here
